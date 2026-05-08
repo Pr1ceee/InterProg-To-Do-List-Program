@@ -34,10 +34,14 @@ while True:
                     return
                 else:
                     print("[Notice: Month added successfully!]")
-                month_index = months.index(month)
-                max_days = days_per_month[month_index]
+                month_index = 0
+                for i in range(len(months)):
+                    if months[i] == month:
+                        month_index = i
+                        break
                     
                 day = int(input("What day is it due? "))
+                max_days = days_per_month[month_index]
                 if day < 1 or day > max_days:
                     print(f"Invalid day! {month} only has {max_days} days.")
                     return
@@ -47,7 +51,7 @@ while True:
                 while True:
                     time = int(input("What time is it due? (0-23): "))
                     if time <= 0 or time <= 23:
-                        full_task = f"{task} - Due: {month} {day}, at {time}:00"
+                        full_task = f"{task} | Due: {month} {day}, at {time}:00"
                         break
                     else:
                         print("Error! Please enter a time between 0 and 23.")
