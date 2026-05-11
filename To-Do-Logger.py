@@ -44,10 +44,17 @@ def get_task_name():
     while True:
 
         # Added .title()
-        new_task = input("Enter new task: ").strip().title()
+        new_task = input(
+            "Enter new task (Enter 0 to cancel): "
+        ).strip().title()
+
+        # Cancel option
+        if new_task == "0":
+            print("Update cancelled.")
+            return None
 
         # Check empty input
-        if new_task == "":
+        elif new_task == "":
             print("Task cannot be empty or spaces only.")
 
         # Minimum characters
@@ -78,9 +85,18 @@ def update_task():
 
         print("\nTASK LIST:")
         for i in range(len(tasks)):
-            print(i + 1, "-", tasks[i])
+            print("[" + str(i + 1) + "]", tasks[i])
 
-        choice = input("Enter task number to update: ").strip()
+        print("[0] Cancel")
+
+        choice = input(
+            "Enter task number to update: "
+        ).strip()
+
+        # Cancel option
+        if choice == "0":
+            print("Update process cancelled.")
+            return
 
         if choice == "":
             print("Input cannot be empty or spaces only.")
@@ -94,7 +110,13 @@ def update_task():
                 print("Current task:", tasks[choice - 1])
 
                 # Use separate function for task input
-                tasks[choice - 1] = get_task_name()
+                updated_task = get_task_name()
+
+                # If cancelled
+                if updated_task is None:
+                    return
+
+                tasks[choice - 1] = updated_task
 
                 print("Task updated successfully!")
                 return
@@ -119,9 +141,18 @@ def delete_task():
 
         print("\nTASK LIST:")
         for i in range(len(tasks)):
-            print(i + 1, "-", tasks[i])
+            print("[" + str(i + 1) + "]", tasks[i])
 
-        choice = input("Enter task number to delete: ").strip()
+        print("[0] Cancel")
+
+        choice = input(
+            "Enter task number to delete: "
+        ).strip()
+
+        # Cancel option
+        if choice == "0":
+            print("Delete process cancelled.")
+            return
 
         if choice == "":
             print("Input cannot be empty or spaces only.")
@@ -138,8 +169,13 @@ def delete_task():
                     confirm = input(
                         "Are you sure you want to delete '"
                         + tasks[choice - 1]
-                        + "'? (Yes/No): "
+                        + "'? (Yes/No or 0 to cancel): "
                     ).strip().title()
+
+                    # Cancel option
+                    if confirm == "0":
+                        print("Delete process cancelled.")
+                        return
 
                     if confirm == "Yes":
 
@@ -152,7 +188,7 @@ def delete_task():
                         return
 
                     else:
-                        print("Please enter Yes or No.")
+                        print("Please enter Yes, No, or 0.")
 
             else:
                 print("Invalid task number.")
