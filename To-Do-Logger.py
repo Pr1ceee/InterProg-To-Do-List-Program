@@ -57,13 +57,13 @@ def get_task_name():
         elif new_task == "":
             print("Task cannot be empty or spaces only.")
 
-        # Minimum characters
-        elif len(new_task) < 7:
-            print("Task must be at least 7 characters long.")
-
         # Prevent numbers only
         elif is_all_numbers(new_task):
             print("Task name cannot be numbers only.")
+
+        # Minimum characters
+        elif len(new_task) < 3:
+            print("Task must be at least 3 characters long.")
 
         # Check duplicate task
         elif is_duplicate(new_task):
