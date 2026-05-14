@@ -203,5 +203,6 @@ update_task()
 delete_task()
 
 print("\nUpdated Task List:")
-for task in tasks:
-    print("-", task)
+
+for i in range(len(tasks)):
+    print("[" + str(i + 1) + "]", tasks[i])
