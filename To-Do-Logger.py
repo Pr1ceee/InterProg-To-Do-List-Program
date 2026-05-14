@@ -29,6 +29,10 @@ def is_duplicate(task_name):
 # Function to check if task name is only numbers
 def is_all_numbers(text):
 
+     # Added empty input check
+    if text == "":
+        return False
+
     numbers = "0123456789"
 
     for char in text:
