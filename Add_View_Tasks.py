@@ -15,19 +15,23 @@ days_per_month = [
     31, 30, 31
 ]
 # this function checks if the input is a number.  
-def is_number(text):
-    numbers = "0123456789"
+def is_all_number(text):
+    if len(text) == 0:
+        return False
     
+    numbers = "0123456789"
     for char in text:
         if char not in numbers:
-            return True
-    return False
+            return False
+    return True
 
 # this function checks if the task is a duplicate of an existing task in the list.   
 def is_duplicate(task):
-    if task in tasks:
-        return True
+    for  existing_task in tasks:
+        if task.lower() in existing_task.lower():
+            return True      
     return False
+            
 
 def add_task():
     while True:
@@ -42,7 +46,7 @@ def add_task():
             print("Error! This task already exists. Please enter a different task.")
             continue
          
-        if len(task) > 0 and is_number(task):
+        if len(task) > 0 and not is_all_number(task):
             full_task = task
             print()
             print("[Notice: Your task has been successfully added to the tasks list!]")
@@ -51,18 +55,29 @@ def add_task():
             
             if deadline == "yes":
                 month = input("What month is it due? ").title()
+                
+                if len(month) > 0 and is_all_number(month):
+                    print("Error! please input the month using letters.")
+                    continue
+                
                 if month not in months:
                     print("Error! Please input a valid month.")
                     continue
                 else:
                     print("[Notice: Month added successfully!]")
+                    
                 month_index = 0
                 for i in range(len(months)):
                     if months[i] == month:
                         month_index = i
                         break
                     
-                day = int(input("What day is it due? "))
+                day_input = input("What day is it due? ")
+                if not is_all_number(day_input):
+                    print("Error! Please input the day using only numbers.")
+                    continue
+                
+                day = int(day_input)
                 max_days = days_per_month[month_index]
                 if day < 1 or day > max_days:
                     print(f"Invalid day! {month} only has {max_days} days.")
@@ -71,14 +86,20 @@ def add_task():
                     print("[Notice: Day added successfully!]")
                     
                 while True:
-                    time = int(input("What time is it due? (0-23): "))
+                    time_input = input("What time is it due? (0-23): ")
+                    if not is_all_number(time_input):
+                        print("Error! Please enter a time between 0 and 23.")
+                        continue
+                    
+                    time = int(time_input)
                     if time < 0 or time > 23:
                         print("Error! Please enter a time between 0 and 23.")
                     else:
                         full_task = f"{task} | Due: {month} {day}, at {time}:00"
                         break
+                    
             elif deadline == "no":
-                print("[Notice: No deadline recorded.")
+                print("[Notice: No deadline recorded.]")
             
             else:
                 print("Invalid input. Please try again.")
