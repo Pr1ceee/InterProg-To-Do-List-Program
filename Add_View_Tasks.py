@@ -28,7 +28,7 @@ def is_all_number(text):
 # this function checks if the task is a duplicate of an existing task in the list.   
 def is_duplicate(task):
     for  existing_task in task_names:
-        if task == existing_task.lower():
+        if task == existing_task:
             return True      
     return False
             
@@ -114,7 +114,7 @@ def add_task():
                 continue
             
             # Storage / Display
-            task_names.append(base_task)
+            task_names.append(normalized_task)
             tasks.append(full_task)
             print("[Notice: Your task has been successfully added to the tasks list!]")
             
