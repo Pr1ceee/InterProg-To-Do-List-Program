@@ -28,7 +28,7 @@ def is_all_number(text):
 # this function checks if the task is a duplicate of an existing task in the list.   
 def is_duplicate(task):
     for  existing_task in task_names:
-        if task.lower() == existing_task.lower():
+        if task == existing_task.lower():
             return True      
     return False
             
@@ -40,8 +40,9 @@ def add_task():
         print("=" * 40)
         
 
-        base_task = input("Enter your task: ").strip().title()
-
+        base_task = input("Enter your task: ").strip()
+        normalized_task = base_task.lower()
+        
         if len(base_task) == 0:
             print("Error! Task cannot be empty. Please enter a valid task.")
             continue
@@ -50,21 +51,17 @@ def add_task():
             print("Error! Task cannot be numbers only. Please enter a valid task.")
             continue
         
-        elif is_duplicate(base_task):
+        elif is_duplicate(normalized_task):
             print("Error! This task already exists. Please enter a different task.")
             continue
 
         else:
-            deadline = input("Would you like to add a deadline for your task? (yes/no): ").lower()
+            deadline = input("Would you like to add a deadline for your task? (yes/no): ").strip().lower()
             
             if deadline == "yes":
                 
                 while True:
                     month = input("What month is it due? ").title()
-                
-                    if len(month) > 0 and is_all_number(month):
-                        print("Error! please input the month using letters.")
-                        continue
                 
                     if month not in months:
                         print("Error! Please input a valid month.")
