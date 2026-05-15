@@ -40,17 +40,17 @@ def add_task():
         print("=" * 40)
         
 
-        task = input("Enter your task: ").strip().title()
-        base_task = task
+        base_task = input("Enter your task: ").strip().title()
 
-        if is_duplicate(base_task):
-            print("Error! This task already exists.")
-            continue
-         
-        if len(base_task) > 0 and not is_all_number(base_task):
-            print()
-            print("[Notice: Your task has been successfully added to the tasks list!]")
+        if len(base_task) == 0:
+            print("Error! Task cannot be empty. Please enter a valid task.")
             
+        elif is_all_number(base_task):
+            print("Error! Task cannot be numbers only. Please enter a valid task.")
+            
+        elif is_duplicate(base_task):
+            print("Error! This task already exists. Please enter a different task.")
+
             deadline = input("Would you like to add a deadline for your task? (yes/no): ").lower()
             
             if deadline == "yes":
@@ -101,7 +101,7 @@ def add_task():
                         print("Error! Please enter a time between 0 and 23.")
                         continue
                     else:
-                        full_task = f"{task} | Due: {month} {day}, at {time}:00"
+                        full_task = f"{base_task} | Due: {month} {day}, at {time}:00"
                         break
                     
             elif deadline == "no":
@@ -116,6 +116,7 @@ def add_task():
             # Storage / Display
             task_names.append(base_task)
             tasks.append(full_task)
+            print("[Notice: Your task has been successfully added to the tasks list!]")
             
             another = input("Would you like to add another task? (yes/no): ").lower()
             if another == "yes":
