@@ -14,7 +14,7 @@ days_per_month = [
     31, 31, 30,
     31, 30, 31
 ]
-# this function checks if the input is a number.  
+# this function checks if the input text consists entirely of numbers. It returns False if the text is empty or contains any non-numeric characters and True if all characters in the text are numbers.
 def is_all_number(text):
     if len(text) == 0:
         return False
@@ -28,11 +28,11 @@ def is_all_number(text):
 # this function checks if the task is a duplicate of an existing task in the list.   
 def is_duplicate(task):
     for  existing_task in tasks:
-        if task.lower() in existing_task.lower():
+        if task.lower() == existing_task.lower():
             return True      
     return False
             
-
+# this function allows the user to add a task and optionally set a deadline for it.
 def add_task():
     while True:
         print("=" * 40)
@@ -42,6 +42,7 @@ def add_task():
 
         task = input("Enter your task: ").strip().title()
         
+
         if is_duplicate(task):
             print("Error! This task already exists. Please enter a different task.")
             continue
@@ -102,14 +103,15 @@ def add_task():
                 print("[Notice: No deadline recorded.]")
             
             else:
-                print("Invalid input. Please try again.")
+                print("Invalid input. Task not saved. Returning to main menu.")
+                continue
             
             tasks.append(full_task)
             
-            another = input("Would you like to add another task? yes = 1, no = 0: ")
-            if another == "1":
+            another = input("Would you like to add another task? (yes/no): ").lower()
+            if another == "yes":
                 continue
-            elif another == "0":
+            elif another == "no":
                 break
             else:
                 print("Invalid input. Returning to main menu.")
