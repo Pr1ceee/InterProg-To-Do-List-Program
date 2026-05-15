@@ -47,10 +47,12 @@ def add_task():
             
         elif is_all_number(base_task):
             print("Error! Task cannot be numbers only. Please enter a valid task.")
-            
+        
         elif is_duplicate(base_task):
             print("Error! This task already exists. Please enter a different task.")
+            continue
 
+        else:
             deadline = input("Would you like to add a deadline for your task? (yes/no): ").lower()
             
             if deadline == "yes":
@@ -107,7 +109,6 @@ def add_task():
             elif deadline == "no":
                 full_task = base_task
                 print("[Notice: No deadline recorded.]")
-                
             
             else:
                 print("Invalid input. Task not saved. Returning to main menu.")
@@ -126,9 +127,6 @@ def add_task():
             else:
                 print("Invalid input. Returning to main menu.")
                 break
-        
-        else:
-            print("Error! Task cannot be a number or empty. Please enter a valid task.")
 
 # this function displays the list of tasks that have been added.
 def view_tasks():
