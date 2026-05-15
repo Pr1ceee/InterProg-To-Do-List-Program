@@ -1,5 +1,8 @@
 # the empty list for tasks serves as a storage for the tasks that the user will input.
 
+from calendar import month
+
+
 tasks = []
 months = [
     "January", "February", "March",
@@ -28,6 +31,7 @@ def is_all_number(text):
 # this function checks if the task is a duplicate of an existing task in the list.   
 def is_duplicate(task):
     for  existing_task in tasks:
+
         if task.lower() == existing_task.lower():
             return True      
     return False
@@ -41,14 +45,13 @@ def add_task():
         
 
         task = input("Enter your task: ").strip().title()
-        
+        base_task = task.strip().title()
 
-        if is_duplicate(task):
+        if is_duplicate(base_task):
             print("Error! This task already exists. Please enter a different task.")
             continue
          
-        if len(task) > 0 and not is_all_number(task):
-            full_task = task
+        if len(base_task) > 0 and not is_all_number(base_task):
             print()
             print("[Notice: Your task has been successfully added to the tasks list!]")
             
@@ -83,6 +86,7 @@ def add_task():
                 if day < 1 or day > max_days:
                     print(f"Invalid day! {month} only has {max_days} days.")
                     continue
+                
                 else:
                     print("[Notice: Day added successfully!]")
                     
@@ -98,14 +102,18 @@ def add_task():
                     else:
                         full_task = f"{task} | Due: {month} {day}, at {time}:00"
                         break
+                full_task = f"{base_task} | Due: {month} {day}, at {time}:00"
                     
             elif deadline == "no":
+                full_task = base_task
                 print("[Notice: No deadline recorded.]")
+                
             
             else:
                 print("Invalid input. Task not saved. Returning to main menu.")
                 continue
             
+            # Storage / DIsplay
             tasks.append(full_task)
             
             another = input("Would you like to add another task? (yes/no): ").lower()
