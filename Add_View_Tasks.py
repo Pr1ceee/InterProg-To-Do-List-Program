@@ -1,8 +1,5 @@
-# the empty list for tasks serves as a storage for the tasks that the user will input.
-
-from calendar import month
-
-
+# the empty list for task names serve as a reference to check for duplicate tasks, while the empty list for tasks is used to store the full task descriptions, including any deadlines that may be added. The months list contains all of the months in a year, while the days_per_month list contains the corresponding number of days for each months.
+task_names = []
 tasks = []
 months = [
     "January", "February", "March",
@@ -30,8 +27,7 @@ def is_all_number(text):
 
 # this function checks if the task is a duplicate of an existing task in the list.   
 def is_duplicate(task):
-    for  existing_task in tasks:
-
+    for  existing_task in task_names:
         if task.lower() == existing_task.lower():
             return True      
     return False
@@ -45,10 +41,10 @@ def add_task():
         
 
         task = input("Enter your task: ").strip().title()
-        base_task = task.strip().title()
+        base_task = task
 
         if is_duplicate(base_task):
-            print("Error! This task already exists. Please enter a different task.")
+            print("Error! This task already exists.")
             continue
          
         if len(base_task) > 0 and not is_all_number(base_task):
@@ -85,7 +81,7 @@ def add_task():
                 max_days = days_per_month[month_index]
                 if day < 1 or day > max_days:
                     print(f"Invalid day! {month} only has {max_days} days.")
-                    continue
+                    return
                 
                 else:
                     print("[Notice: Day added successfully!]")
@@ -94,15 +90,15 @@ def add_task():
                     time_input = input("What time is it due? (0-23): ")
                     if not is_all_number(time_input):
                         print("Error! Please enter a time between 0 and 23.")
-                        continue
+                        return
                     
                     time = int(time_input)
                     if time < 0 or time > 23:
                         print("Error! Please enter a time between 0 and 23.")
+                        return
                     else:
                         full_task = f"{task} | Due: {month} {day}, at {time}:00"
                         break
-                full_task = f"{base_task} | Due: {month} {day}, at {time}:00"
                     
             elif deadline == "no":
                 full_task = base_task
@@ -113,7 +109,8 @@ def add_task():
                 print("Invalid input. Task not saved. Returning to main menu.")
                 continue
             
-            # Storage / DIsplay
+            # Storage / Display
+            task_names.append(base_task)
             tasks.append(full_task)
             
             another = input("Would you like to add another task? (yes/no): ").lower()
@@ -128,6 +125,7 @@ def add_task():
         else:
             print("Error! Task cannot be a number or empty. Please enter a valid task.")
 
+# this function displays the list of tasks that have been added.
 def view_tasks():
     if len(tasks) == 0:
         print("No tasks found.")
