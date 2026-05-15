@@ -44,9 +44,11 @@ def add_task():
 
         if len(base_task) == 0:
             print("Error! Task cannot be empty. Please enter a valid task.")
+            continue
             
         elif is_all_number(base_task):
             print("Error! Task cannot be numbers only. Please enter a valid task.")
+            continue
         
         elif is_duplicate(base_task):
             print("Error! This task already exists. Please enter a different task.")
