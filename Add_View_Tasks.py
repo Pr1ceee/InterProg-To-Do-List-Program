@@ -54,48 +54,52 @@ def add_task():
             deadline = input("Would you like to add a deadline for your task? (yes/no): ").lower()
             
             if deadline == "yes":
-                month = input("What month is it due? ").title()
                 
-                if len(month) > 0 and is_all_number(month):
-                    print("Error! please input the month using letters.")
-                    continue
+                while True:
+                    month = input("What month is it due? ").title()
                 
-                if month not in months:
-                    print("Error! Please input a valid month.")
-                    continue
-                else:
-                    print("[Notice: Month added successfully!]")
+                    if len(month) > 0 and is_all_number(month):
+                        print("Error! please input the month using letters.")
+                        continue
+                
+                    if month not in months:
+                        print("Error! Please input a valid month.")
+                        continue
+                    else:
+                        print("[Notice: Month added successfully!]")
+                        break
                     
                 month_index = 0
                 for i in range(len(months)):
                     if months[i] == month:
                         month_index = i
                         break
-                    
-                day_input = input("What day is it due? ")
-                if not is_all_number(day_input):
-                    print("Error! Please input the day using only numbers.")
-                    continue
                 
-                day = int(day_input)
-                max_days = days_per_month[month_index]
-                if day < 1 or day > max_days:
-                    print(f"Invalid day! {month} only has {max_days} days.")
-                    return
+                while True:    
+                    day_input = input("What day is it due? ")
+                    if not is_all_number(day_input):
+                        print("Error! Please input the day using only numbers.")
+                        continue
                 
-                else:
-                    print("[Notice: Day added successfully!]")
+                    day = int(day_input)
+                    max_days = days_per_month[month_index]
+                    if day < 1 or day > max_days:
+                        print(f"Invalid day! {month} only has {max_days} days.")
+                        continue
+                    else:
+                        print("[Notice: Day added successfully!]")
+                        break
                     
                 while True:
                     time_input = input("What time is it due? (0-23): ")
                     if not is_all_number(time_input):
                         print("Error! Please enter a time between 0 and 23.")
-                        return
+                        continue
                     
                     time = int(time_input)
                     if time < 0 or time > 23:
                         print("Error! Please enter a time between 0 and 23.")
-                        return
+                        continue
                     else:
                         full_task = f"{task} | Due: {month} {day}, at {time}:00"
                         break
