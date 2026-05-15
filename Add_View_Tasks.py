@@ -1,6 +1,6 @@
 # the empty list for task names serve as a reference to check for duplicate tasks, while the empty list for tasks is used to store the full task descriptions, including any deadlines that may be added. The months list contains all of the months in a year, while the days_per_month list contains the corresponding number of days for each months.
-task_names = []
-tasks = []
+task_index = []
+task_list = []
 months = [
     "January", "February", "March",
     "April", "May", "June",
@@ -27,7 +27,7 @@ def is_all_number(text):
 
 # this function checks if the task is a duplicate of an existing task in the list.   
 def is_duplicate(task):
-    for  existing_task in task_names:
+    for  existing_task in task_index:
         if task == existing_task:
             return True      
     return False
@@ -102,11 +102,11 @@ def add_task():
                         print("Error! Please enter a time between 0 and 23.")
                         continue
                     else:
-                        full_task = f"{base_task} | Due: {month} {day}, at {time}:00"
+                        full_task = f"{base_task.title()} | Due: {month} {day}, at {time}:00"
                         break
                     
             elif deadline == "no":
-                full_task = base_task
+                full_task = base_task.title()
                 print("[Notice: No deadline recorded.]")
             
             else:
@@ -114,8 +114,8 @@ def add_task():
                 continue
             
             # Storage / Display
-            task_names.append(normalized_task)
-            tasks.append(full_task)
+            task_index.append(normalized_task)
+            task_list.append(full_task)
             print("[Notice: Your task has been successfully added to the tasks list!]")
             
             another = input("Would you like to add another task? (yes/no): ").lower()
@@ -129,11 +129,11 @@ def add_task():
 
 # this function displays the list of tasks that have been added.
 def view_tasks():
-    if len(tasks) == 0:
+    if len(task_list) == 0:
         print("No tasks found.")
     
     else:
-        for i, task in enumerate(tasks, 1):
+        for i, task in enumerate(task_list, 1):
             print(f"[{i}] {task}")
 
         
