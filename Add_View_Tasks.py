@@ -1,4 +1,8 @@
-# the empty list for task names serve as a reference to check for duplicate tasks, while the empty list for tasks is used to store the full task descriptions, including any deadlines that may be added. The months list contains all of the months in a year, while the days_per_month list contains the corresponding number of days for each months.
+print("=" * 40)
+print("           TASK MANAGER         ")
+print("=" * 40)
+
+# the empty lists below are used to store the tasks and their corresponding deadlines. The 'tasks' list will hold the names of the tasks, while the 'deadlines' list will hold the deadlines associated with each task. The 'months' list contains the names of the months, and the 'days_per_month' list contains the number of days in each month, which is used for validating user input when setting deadlines.
 tasks = []
 deadlines = []
 months = [
@@ -28,7 +32,7 @@ def is_all_number(text):
 # this function checks if the task is a duplicate of an existing task in the list.   
 def is_duplicate(task):
     for  existing_task in tasks:
-        if task == existing_task:
+        if task.lower() == existing_task.lower():
             return True      
     return False
             
@@ -107,7 +111,7 @@ def add_task():
                         continue
                     else:
                         formatted_task = base_task.title()
-                        formatted_deadline = f"{month} {day} at {time}:00"
+                        formatted_deadline = f"{month} {day}, at {time}:00"
                         break
                     
             elif deadline == "no":
@@ -141,7 +145,7 @@ def view_tasks():
     
     else:
         for i in range(len(tasks)):
-            print("[" + str(i + 1) + "]", tasks[i], "-Deadline:", deadlines[i])
+            print("[" + str(i + 1) + "]", tasks[i], "- Deadline:", deadlines[i])
 
         
 add_task()
