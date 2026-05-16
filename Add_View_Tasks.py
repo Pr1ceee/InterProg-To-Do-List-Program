@@ -2,9 +2,9 @@ print("=" * 40)
 print("           TASK MANAGER         ")
 print("=" * 40)
 
-# the empty lists below are used to store the tasks and their corresponding deadlines. The 'tasks' list will hold the names of the tasks, while the 'deadlines' list will hold the deadlines associated with each task. The 'months' list contains the names of the months, and the 'days_per_month' list contains the number of days in each month, which is used for validating user input when setting deadlines.
-tasks = []
-deadlines = []
+# the empty lists below are used to store the tasks and their corresponding deadlines. The 'tasks_list' list will hold the names of the tasks, while the 'deadline_list' list will hold the deadlines associated with each task. The 'months' list contains the names of the months, and the 'days_per_month' list contains the number of days in each month, which is used for validating user input when setting deadlines.
+tasks_list = []
+deadline_list = []
 months = [
     "January", "February", "March",
     "April", "May", "June",
@@ -31,22 +31,40 @@ def is_all_number(text):
 
 # this function checks if the task is a duplicate of an existing task in the list.   
 def is_duplicate(task):
-    for  existing_task in tasks:
+    for  existing_task in tasks_list:
         if task.lower() == existing_task.lower():
             return True      
     return False
             
+# this function displays the list of tasks that have been added.
+def view_tasks():
+    print("=" * 40)
+    print("            VIEW TASKS         ")
+    print("=" * 40)
+
+    if len(tasks_list) == 0:
+        print("No tasks found.")
+    
+    else:
+        for i in range(len(tasks_list)):
+            print("[" + str(i + 1) + "]", tasks_list[i], "- Deadline:", deadline_list[i])
+
 # this function allows the user to add a task and optionally set a deadline for it.
 def add_task():
     while True:
         print("=" * 40)
-        print("           ADD & VIEW TASKS         ")
+        print("           ADD TASKS         ")
         print("=" * 40)
         
 
-        base_task = input("Enter your task: ").strip().title()
-        normalized_task = base_task.lower()
+        base_task = input("Enter your task (0 to cancel): ").strip().title()       
+                
+        if base_task == "0":
+            print("Task addition cancelled.")
+            return None
         
+        normalized_task = base_task.lower()
+
         if len(base_task) == 0:
             print("Error! Task cannot be empty.")
             continue
@@ -66,14 +84,19 @@ def add_task():
         else:
             deadline = input("Would you like to add a deadline for your task? (yes/no): ").strip().lower()
             
-            if deadline == "yes":
+            if deadline == "yes".strip().lower():
                 
                 while True:
-                    month = input("What month is it due? ").strip().title()
-                
-                    if month not in months:
+                    month = input("What month is it due? (0 to cancel): ").strip().title()
+
+                    if month == "0":
+                        print("Month input cancelled.")
+                        return None
+                        
+                    elif month not in months:
                         print("Error! Please input a valid month.")
                         continue
+
                     else:
                         print("[Notice: Month added successfully!]")
                         break
@@ -85,7 +108,12 @@ def add_task():
                         break
                 
                 while True:    
-                    day_input = input("What day is it due? ")
+                    day_input = input("What day is it due? (0 to cancel) ").strip()
+                    
+                    if day_input == "0":
+                        print("Day input cancelled.")
+                        return None
+                    
                     if not is_all_number(day_input):
                         print("Error! Please input the day using only numbers.")
                         continue
@@ -95,12 +123,18 @@ def add_task():
                     if day < 1 or day > max_days:
                         print(f"Invalid day! {month} only has {max_days} days.")
                         continue
+
                     else:
                         print("[Notice: Day added successfully!]")
                         break
                     
                 while True:
-                    time_input = input("What time is it due? (0-23): ")
+                    time_input = input("What time is it due? (0-23) (0 to cancel): ")
+                    
+                    if time_input == "0":
+                        print("Time input cancelled.")
+                        return None
+                    
                     if not is_all_number(time_input):
                         print("Error! Please enter a time between 0 and 23.")
                         continue
@@ -109,25 +143,27 @@ def add_task():
                     if time < 0 or time > 23:
                         print("Error! Please enter a time between 0 and 23.")
                         continue
+
                     else:
                         formatted_task = base_task.title()
                         formatted_deadline = f"{month} {day}, at {time}:00"
                         break
                     
-            elif deadline == "no":
+            elif deadline == "no".strip().lower():
                 formatted_task = base_task.title()
                 formatted_deadline = "No Deadline"
                 print("[Notice: No deadline recorded.]")
             
             else:
-                print("Invalid input. Task not saved. Returning to main menu.")
+                print("Invalid input. Task not saved.")
                 continue
             
             # Storage / Display
-            tasks.append(formatted_task)
-            deadlines.append(formatted_deadline)
-            
+            tasks_list.append(formatted_task)
+            deadline_list.append(formatted_deadline)
             print("[Notice: Your task has been successfully added to the tasks list!]")
+            
+            view_tasks()
             
             another = input("Would you like to add another task? (yes/no): ").lower()
             if another == "yes":
@@ -137,16 +173,6 @@ def add_task():
             else:
                 print("Invalid input. Returning to main menu.")
                 break
-
-# this function displays the list of tasks that have been added.
-def view_tasks():
-    if len(tasks) == 0:
-        print("No tasks found.")
-    
-    else:
-        for i in range(len(tasks)):
-            print("[" + str(i + 1) + "]", tasks[i], "- Deadline:", deadlines[i])
-
-        
+  
 add_task()
-view_tasks()
+
