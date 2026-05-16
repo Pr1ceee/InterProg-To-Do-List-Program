@@ -1,8 +1,26 @@
 # Sample task list
-tasks = ["Do Homework", "Wash Dishes", "Study Python"]
+tasks_list = ["Do Homework", "Wash Dishes", "Study Python"]
 
-# Separate deadline list
-deadlines = ["May 20", "May 22", "May 25"]
+# Sample deadline list
+deadline_list = [
+    "May 20 14:00",
+    "May 21 10:00",
+    "May 25 18:00"
+]
+
+months = [
+    "January", "February", "March",
+    "April", "May", "June",
+    "July", "August", "September",
+    "October", "November", "December"
+]
+
+days_per_month = [
+    31, 28, 31,
+    30, 31, 30,
+    31, 31, 30,
+    31, 30, 31
+]
 
 
 # Function to check if input is a number
@@ -23,7 +41,7 @@ def is_number(text):
 # Function to check duplicate tasks
 def is_duplicate(task_name):
 
-    for task in tasks:
+    for task in tasks_list:
         if task.lower() == task_name.lower():
             return True
 
@@ -63,7 +81,7 @@ def get_task_name():
             print("Task cannot be empty or spaces only.")
 
         elif is_all_numbers(new_task):
-            print("Task name cannot be numbers only.")
+            print("Error! Task name cannot be numbers only.")
 
         elif len(new_task) < 3:
             print("Task must be at least 3 characters long.")
@@ -78,45 +96,82 @@ def get_task_name():
 # Function for deadline input
 def get_deadline():
 
+    # Month Validation
     while True:
 
-        deadline = input(
-            "Enter deadline (Example: May 20 or 0 to cancel): "
+        month = input(
+            "What month is it due? "
         ).strip().title()
 
-        # Cancel option
-        if deadline == "0":
-            print("Deadline update cancelled.")
-            return None
+        if month not in months:
+            print("Error! Please input a valid month.")
+            continue
 
-        elif deadline == "":
-            print("Deadline cannot be empty.")
+        month_index = months.index(month)
+        break
 
-        elif len(deadline) < 3:
-            print("Deadline is too short.")
+    # Day Validation
+    while True:
 
-        else:
-            return deadline
+        day_input = input(
+            "What day is it due? "
+        ).strip()
+
+        if not is_all_numbers(day_input):
+            print("Error! Please input the day using only numbers.")
+            continue
+
+        day = int(day_input)
+        max_days = days_per_month[month_index]
+
+        if day < 1 or day > max_days:
+            print(f"Invalid day! {month} only has {max_days} days.")
+            continue
+
+        break
+
+    # Time Validation
+    while True:
+
+        time_input = input(
+            "What time is it due? (0-23): "
+        ).strip()
+
+        if not is_all_numbers(time_input):
+            print("Error! Please enter a time between 0 and 23.")
+            continue
+
+        time = int(time_input)
+
+        if time < 0 or time > 23:
+            print("Error! Please enter a time between 0 and 23.")
+            continue
+
+        break
+
+    return f"{month} {day} {time}:00"
 
 
 # Function to update a task
 def update_task():
 
     # Handle empty task list
-    if len(tasks) == 0:
-        print("\nNo tasks available to update.")
+    if len(tasks_list) == 0:
+        print("\nNo task found.")
         return
 
     while True:
 
-        print("\nTASK LIST:")
+        print("=" * 40)
+        print("         UPDATE & DELETE TASK         ")
+        print("=" * 40)
 
-        for i in range(len(tasks)):
+        for i in range(len(tasks_list)):
             print(
                 "[" + str(i + 1) + "]",
-                tasks[i],
+                tasks_list[i],
                 "- Deadline:",
-                deadlines[i]
+                deadline_list[i]
             )
 
         print("[0] Cancel")
@@ -137,10 +192,10 @@ def update_task():
 
             choice = int(choice)
 
-            if choice >= 1 and choice <= len(tasks):
+            if choice >= 1 and choice <= len(tasks_list):
 
-                print("Current task:", tasks[choice - 1])
-                print("Current deadline:", deadlines[choice - 1])
+                print("Current task:", tasks_list[choice - 1])
+                print("Current deadline:", deadline_list[choice - 1])
 
                 # Get updated task
                 updated_task = get_task_name()
@@ -155,15 +210,15 @@ def update_task():
                     return
 
                 # Update task and deadline
-                tasks[choice - 1] = updated_task
-                deadlines[choice - 1] = updated_deadline
+                tasks_list[choice - 1] = updated_task
+                deadline_list[choice - 1] = updated_deadline
 
                 print("Task updated successfully!")
                 return
 
             else:
                 print("Invalid task number.")
-                print("Please choose a number between 1 and", len(tasks))
+                print("Please choose a number between 1 and", len(tasks_list))
 
         else:
             print("Please enter numbers only.")
@@ -173,7 +228,7 @@ def update_task():
 def delete_task():
 
     # Handle empty task list
-    if len(tasks) == 0:
+    if len(tasks_list) == 0:
         print("\nNo tasks available to delete.")
         return
 
@@ -181,12 +236,12 @@ def delete_task():
 
         print("\nTASK LIST:")
 
-        for i in range(len(tasks)):
+        for i in range(len(tasks_list)):
             print(
                 "[" + str(i + 1) + "]",
-                tasks[i],
+                tasks_list[i],
                 "- Deadline:",
-                deadlines[i]
+                deadline_list[i]
             )
 
         print("[0] Cancel")
@@ -207,14 +262,14 @@ def delete_task():
 
             choice = int(choice)
 
-            if choice >= 1 and choice <= len(tasks):
+            if choice >= 1 and choice <= len(tasks_list):
 
                 while True:
 
                     confirm = input(
                         "Are you sure you want to delete '"
-                        + tasks[choice - 1]
-                        + "'? (Yes/No or 0 to cancel): "
+                        + tasks_list[choice - 1]
+                        + "'? (Yes/No): "
                     ).strip().title()
 
                     # Cancel option
@@ -224,8 +279,8 @@ def delete_task():
 
                     if confirm == "Yes":
 
-                        removed_task = tasks.pop(choice - 1)
-                        removed_deadline = deadlines.pop(choice - 1)
+                        removed_task = tasks_list.pop(choice - 1)
+                        removed_deadline = deadline_list.pop(choice - 1)
 
                         print(
                             "Deleted task:",
@@ -244,7 +299,7 @@ def delete_task():
 
             else:
                 print("Invalid task number.")
-                print("Please choose a number between 1 and", len(tasks))
+                print("Please choose a number between 1 and", len(tasks_list))
 
         else:
             print("Please enter numbers only.")
@@ -254,12 +309,12 @@ def delete_task():
 update_task()
 delete_task()
 
-print("\nUpdated Task List:")
+print("\nUPDATED TASK LIST:")
 
-for i in range(len(tasks)):
+for i in range(len(tasks_list)):
     print(
         "[" + str(i + 1) + "]",
-        tasks[i],
+        tasks_list[i],
         "- Deadline:",
-        deadlines[i]
+        deadline_list[i]
     )
