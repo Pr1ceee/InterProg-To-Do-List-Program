@@ -66,7 +66,7 @@ def get_task_name():
             print("Task cannot be empty or spaces only.")
 
         elif is_all_numbers(new_task):
-            print("Error! Task name cannot be numbers only.")
+            print("Error! Task cannot be numbers only.")
 
         elif len(new_task) < 3:
             print("Task must be at least 3 characters long.")
@@ -142,7 +142,7 @@ def update_task():
 
     # Handle empty task list
     if len(tasks_list) == 0:
-        print("\nNo task found.")
+        print("\nNo tasks found.")
         return
 
     while True:
@@ -219,7 +219,9 @@ def delete_task():
 
     while True:
 
-        print("\nDELETE TASK:")
+        print("=" * 40)
+        print("         DELETE TASK         ")
+        print("=" * 40)
 
         for i in range(len(tasks_list)):
             print(
