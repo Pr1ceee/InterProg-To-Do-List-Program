@@ -3,9 +3,9 @@ tasks_list = ["Do Homework", "Wash Dishes", "Study Python"]
 
 # Sample deadline list
 deadline_list = [
-    "May 20 14:00",
-    "May 21 10:00",
-    "May 25 18:00"
+    "May 20, at 14:00",
+    "May 21, at 10:00",
+    "May 25, at 18:00"
 ]
 
 months = [
@@ -23,25 +23,10 @@ days_per_month = [
 ]
 
 
-# Function to check if input is a number
-def is_number(text):
-
-    numbers = "0123456789"
-
-    if text.strip() == "":
-        return False
-
-    for char in text:
-        if char not in numbers:
-            return False
-
-    return True
-
-
 # Function to check duplicate tasks
-def is_duplicate(task_name):
+def is_duplicate(task):
 
-    for task in tasks_list:
+    for task_name in tasks_list:
         if task.lower() == task_name.lower():
             return True
 
@@ -149,7 +134,7 @@ def get_deadline():
 
         break
 
-    return f"{month} {day} {time}:00"
+    return f"{month} {day}, at {time}:00"
 
 
 # Function to update a task
@@ -163,7 +148,7 @@ def update_task():
     while True:
 
         print("=" * 40)
-        print("         UPDATE & DELETE TASK         ")
+        print("         UPDATE TASK         ")
         print("=" * 40)
 
         for i in range(len(tasks_list)):
@@ -188,7 +173,7 @@ def update_task():
         if choice == "":
             print("Input cannot be empty or spaces only.")
 
-        elif is_number(choice):
+        elif is_all_numbers(choice):
 
             choice = int(choice)
 
@@ -198,20 +183,20 @@ def update_task():
                 print("Current deadline:", deadline_list[choice - 1])
 
                 # Get updated task
-                updated_task = get_task_name()
+                new_task = get_task_name()
 
-                if updated_task is None:
+                if new_task is None:
                     return
 
                 # Get updated deadline
-                updated_deadline = get_deadline()
+                new_deadline = get_deadline()
 
-                if updated_deadline is None:
+                if new_deadline is None:
                     return
 
                 # Update task and deadline
-                tasks_list[choice - 1] = updated_task
-                deadline_list[choice - 1] = updated_deadline
+                tasks_list[choice - 1] = new_task
+                deadline_list[choice -1] = new_deadline
 
                 print("Task updated successfully!")
                 return
@@ -229,12 +214,12 @@ def delete_task():
 
     # Handle empty task list
     if len(tasks_list) == 0:
-        print("\nNo tasks available to delete.")
+        print("\nNo tasks found.")
         return
 
     while True:
 
-        print("\nTASK LIST:")
+        print("\nDELETE TASK:")
 
         for i in range(len(tasks_list)):
             print(
@@ -258,7 +243,7 @@ def delete_task():
         if choice == "":
             print("Input cannot be empty or spaces only.")
 
-        elif is_number(choice):
+        elif is_all_numbers(choice):
 
             choice = int(choice)
 
