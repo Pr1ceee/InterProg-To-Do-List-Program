@@ -35,7 +35,7 @@ def is_all_numbers(text):
 
 # Function to check duplicate tasks
 def is_duplicate(task):
-    for  existing_task in tasks_list:
+    for existing_task in tasks_list:
         if task.lower() == existing_task.lower():
             return True      
     return False
@@ -43,7 +43,7 @@ def is_duplicate(task):
 # Function to display the list of tasks that have been added
 def view_tasks():
     print("=" * 40)
-    print("            VIEW TASKS         ")
+    print("            VIEW TASK          ")
     print("=" * 40)
 
     if len(tasks_list) == 0:
@@ -57,11 +57,11 @@ def view_tasks():
 def add_task():
     while True:
         print("=" * 40)
-        print("           ADD TASKS         ")
+        print("           ADD TASK          ")
         print("=" * 40)
         
 
-        base_task = input("Enter your task (0 to cancel): ").strip().title()       
+        base_task = input("Enter your task (0 to cancel): ").strip()      
          
         # Cancel option       
         if base_task == "0":
@@ -106,11 +106,7 @@ def add_task():
                         break
                 
                 # Finds the index of the month in the months list for days_per_month reference
-                month_index = 0
-                for i in range(len(months)):
-                    if months[i] == month:
-                        month_index = i
-                        break
+                month_index = months.index(month)
                 
                 while True:    
                     day_input = input("What day is it due? (0 to cancel) ").strip()
@@ -175,7 +171,7 @@ def add_task():
             view_tasks()
             
             # Ask if user wants to add another task
-            another = input("Would you like to add another task? (yes/no): ").lower()
+            another = input("Would you like to add another task? (yes/no): ").strip().lower()
             if another == "yes":
                 continue
             elif another == "no":
