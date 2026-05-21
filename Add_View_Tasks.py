@@ -22,6 +22,18 @@ days_per_month = [
     31, 30, 31
 ]
 
+# Function to display tasks with a custom title
+def display_tasks(title):
+    print("=" * 40)
+    print(title.center(40))
+    print("=" * 40)
+    
+    if len(tasks_list) == 0:
+        print("No tasks found.")
+    else:
+        for i in range(len(tasks_list)):
+            print("[" + str(i + 1) + "]", tasks_list[i], "- Deadline:", deadline_list[i])
+
 # Function to check if task name is all numbers
 def is_all_numbers(text):
     if len(text) == 0:
@@ -102,7 +114,7 @@ def add_task():
                         continue
 
                     else:
-                        print("[Notice: Month added successfully!]")
+                        print("Month added successfully!")
                         break
                 
                 # Finds the index of the month in the months list for days_per_month reference
@@ -128,7 +140,7 @@ def add_task():
                         continue
 
                     else:
-                        print("[Notice: Day added successfully!]")
+                        print("Day added successfully!")
                         break
                     
                 while True:
@@ -157,7 +169,7 @@ def add_task():
             elif deadline == "no":
                 formatted_task = base_task.title()
                 formatted_deadline = "No Deadline"
-                print("[Notice: No deadline recorded.]")
+                print("No deadline recorded.")
             
             else:
                 print("Invalid input. Task not saved.")
@@ -166,7 +178,7 @@ def add_task():
             # Storage / Display
             tasks_list.append(formatted_task)
             deadline_list.append(formatted_deadline)
-            print("[Notice: Your task has been successfully added to the tasks list!]")
+            print("Your task has been successfully added to the tasks list!")
             
             view_tasks()
             
