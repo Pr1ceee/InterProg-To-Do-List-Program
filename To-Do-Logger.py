@@ -84,7 +84,7 @@ def get_task_name():
             return None
 
         elif new_task == "":
-            print("Task cannot be empty or spaces only.")
+            print("Error! Task cannot be empty.")
 
         elif is_all_numbers(new_task):
             print("Error! Task cannot be numbers only.")
@@ -216,9 +216,9 @@ def update_task():
 
                     update_deadline = input(
                         "Would you like to update deadline? (Yes/No): "
-                    ).strip().title()
+                    ).strip().lower()
 
-                    if update_deadline == "Yes":
+                    if update_deadline == "yes":
 
                         new_deadline = get_deadline()
 
@@ -229,7 +229,7 @@ def update_task():
                         deadline_list[choice - 1] = new_deadline
                         break
 
-                    elif update_deadline == "No":
+                    elif update_deadline == "no":
                         break
 
                     else:
@@ -273,7 +273,7 @@ def delete_task():
             return
 
         if choice == "":
-            print("Input cannot be empty or spaces only.")
+            print("Error! Task cannot be empty.")
 
         elif is_all_numbers(choice):
 
