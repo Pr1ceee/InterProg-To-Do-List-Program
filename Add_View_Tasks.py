@@ -1,75 +1,83 @@
 print("=" * 40)
-print("           TASK MANAGER         ")
+print("TASK MANAGER".center(40))
 print("=" * 40)
 
+import common_functions as cf 
+
 # Empty task list and deadline list
-tasks_list = []
-deadline_list = []
+tasks_list = cf.tasks_list = []
+deadline_list = cf.deadline_list = []
 
-# List of months
-months = [
-    "January", "February", "March",
-    "April", "May", "June",
-    "July", "August", "September",
-    "October", "November", "December"
-]
+def get_cancelled_deadline():
+    print("Deadline input cancelled.")
+    return "No Deadline"
+       
+def get_deadline():
+    # Month Validation
+    while True:
+        month = input("What month is it due? (0 to cancel): ").strip().title()
 
-# List of days per month
-days_per_month = [
-    31, 28, 31,
-    30, 31, 30,
-    31, 31, 30,
-    31, 30, 31
-]
+        # Cancel option
+        if month == "0":
+            return get_cancelled_deadline()
+                        
+        elif month not in cf.months:
+            print("Error! Please input a valid month.")
+            continue
 
-# Function to display tasks with a custom title
-def display_tasks(title):
-    print("=" * 40)
-    print(title.center(40))
-    print("=" * 40)
+        else:
+            break
+                
+    # Finds the index of the month in the months list for days_per_month reference
+    month_index = cf.months.index(month)
+        
+    # Day Validation
+    while True:    
+        day_input = input("What day is it due? (0 to cancel) ").strip()
+                    
+        # Cancel option
+        if day_input == "0":
+            return get_cancelled_deadline()
+                    
+        if not cf.is_all_numbers(day_input):
+            print("Error! Please input the day using only numbers.")
+            continue
+                    
+        # Checks if the day is valid for the month
+        day = int(day_input)
+        max_days = cf.days_per_month[month_index]
+        if day < 1 or day > max_days:
+            print(f"Invalid day! {month} only has {max_days} days.")
+            continue
+
+        else:
+            break
     
-    if len(tasks_list) == 0:
-        print("No tasks found.")
-    else:
-        for i in range(len(tasks_list)):
-            print("[" + str(i + 1) + "]", tasks_list[i], "- Deadline:", deadline_list[i])
-
-# Function to check if task name is all numbers
-def is_all_numbers(text):
-    if len(text) == 0:
-        return False
-    
-    numbers = "0123456789"
-    for char in text:
-        if char not in numbers:
-            return False
-    return True
-
-# Function to check duplicate tasks
-def is_duplicate(task):
-    for existing_task in tasks_list:
-        if task.lower() == existing_task.lower():
-            return True      
-    return False
-            
-# Function to display the list of tasks that have been added
-def view_tasks():
-    print("=" * 40)
-    print("            VIEW TASK          ")
-    print("=" * 40)
-
-    if len(tasks_list) == 0:
-        print("No tasks found.")
-    
-    else:
-        for i in range(len(tasks_list)):
-            print("[" + str(i + 1) + "]", tasks_list[i], "- Deadline:", deadline_list[i])
-
+    # Time Validation   
+    while True:
+        time_input = input("What time is it due? (0-23) (-1 to cancel): ")
+                    
+        if time_input == "-1":
+            return get_cancelled_deadline()
+                    
+        if not cf.is_all_numbers(time_input):
+            print("Error! Please enter a time between 0 and 23.")
+            continue
+                    
+        time = int(time_input)
+        if time < 0 or time > 23:
+            print("Error! Please enter a time between 0 and 23.")
+            continue
+        else:
+            break
+        
+    return f"{month} {day} at {time}:00"
+        
 # Function to add a task and optionally set a deadline for it
 def add_task():
     while True:
         print("=" * 40)
-        print("           ADD TASK          ")
+        print("ADD TASK".center(40))
         print("=" * 40)
         
 
@@ -88,87 +96,28 @@ def add_task():
             print("Error! Task must be at least 3 characters long.")
             continue
 
-        elif is_all_numbers(base_task):
+        elif cf.is_all_numbers(base_task):
             print("Error! Task cannot be numbers only.")
             continue
         
-        elif is_duplicate(base_task):
+        elif cf.is_duplicate(base_task, tasks_list):
             print("Error! This task already exists.")
             continue
 
         else:
             deadline = input("Would you like to add a deadline for your task? (yes/no): ").strip().lower()
             
+            formatted_task = base_task.title()
+            formatted_deadline = "No Deadline"
+                
             if deadline == "yes":
+                formatted_deadline = get_deadline()
                 
-                while True:
-                    month = input("What month is it due? (0 to cancel): ").strip().title()
-
-                    # Cancel option
-                    if month == "0":
-                        print("Month input cancelled.")
-                        return
-                        
-                    elif month not in months:
-                        print("Error! Please input a valid month.")
-                        continue
-
-                    else:
-                        print("Month added successfully!")
-                        break
-                
-                # Finds the index of the month in the months list for days_per_month reference
-                month_index = months.index(month)
-                
-                while True:    
-                    day_input = input("What day is it due? (0 to cancel) ").strip()
-                    
-                    # Cancel option
-                    if day_input == "0":
-                        print("Day input cancelled.")
-                        return
-                    
-                    if not is_all_numbers(day_input):
-                        print("Error! Please input the day using only numbers.")
-                        continue
-                    
-                    # Checks if the day is valid for the month
-                    day = int(day_input)
-                    max_days = days_per_month[month_index]
-                    if day < 1 or day > max_days:
-                        print(f"Invalid day! {month} only has {max_days} days.")
-                        continue
-
-                    else:
-                        print("Day added successfully!")
-                        break
-                    
-                while True:
-                    time_input = input("What time is it due? (0-23) (-1 to cancel): ")
-                    
-                    if time_input == "-1":
-                        print("Time input cancelled.")
-                        return
-                    
-                    if not is_all_numbers(time_input):
-                        print("Error! Please enter a time between 0 and 23.")
-                        continue
-                    
-                    time = int(time_input)
-                    if time < 0 or time > 23:
-                        print("Error! Please enter a time between 0 and 23.")
-                        continue
-                        
-                    # If the user inputs a valid time, the task and deadline will be formatted and added to the respective lists.
-                    else:
-                        formatted_task = base_task.title()
-                        formatted_deadline = f"{month} {day}, at {time}:00"
-                        break
+                if formatted_deadline is None:
+                    return
             
             # If the user chooses not to add a deadline, deadline = "No Deadline" but the task is still added to the list with a notice that no deadline was recorded.
             elif deadline == "no":
-                formatted_task = base_task.title()
-                formatted_deadline = "No Deadline"
                 print("No deadline recorded.")
             
             else:
@@ -180,7 +129,7 @@ def add_task():
             deadline_list.append(formatted_deadline)
             print("Your task has been successfully added to the tasks list!")
             
-            view_tasks()
+            cf.display_tasks()
             
             # Ask if user wants to add another task
             another = input("Would you like to add another task? (yes/no): ").strip().lower()
