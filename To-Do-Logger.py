@@ -70,6 +70,7 @@ def is_all_numbers(text):
 
 
 # Function for valid task name input
+# Function for valid task name input
 def get_task_name():
 
     while True:
@@ -93,7 +94,22 @@ def get_task_name():
             print("Error! Task must be at least 3 characters long.")
 
         elif is_duplicate(new_task):
-            print("Task already exists. Please enter a different task.")
+
+            while True:
+
+                choice = input(
+                    "This task already exists, would you like to update the deadline instead? (Yes/No): "
+                ).strip().lower()
+
+                if choice == "yes":
+                    return "UPDATE_DEADLINE"
+
+                elif choice == "no":
+                    print("Please enter a different task.")
+                    break
+
+                else:
+                    print("Please enter Yes or No.")
 
         else:
             return new_task
@@ -209,6 +225,17 @@ def update_task():
                 new_task = get_task_name()
 
                 if new_task is None:
+                    return
+
+                # If duplicate task exists, update deadline instead
+                if new_task == "UPDATE_DEADLINE":
+
+                    new_deadline = get_deadline()
+
+                    if new_deadline is not None:
+                        deadline_list[choice - 1] = new_deadline
+                        print("Deadline updated successfully!")
+
                     return
 
                 # Ask if user wants to update deadline
