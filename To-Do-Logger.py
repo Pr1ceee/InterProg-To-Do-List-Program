@@ -25,7 +25,7 @@ days_per_month = [
 
 
 # Function to display tasks
-def display_tasks(title):
+def display_tasks(title, show_empty=True):
 
     print("=" * 40)
     print(title.center(40))
@@ -90,7 +90,7 @@ def get_task_name():
             print("Error! Task cannot be numbers only.")
 
         elif len(new_task) < 3:
-            print("Task must be at least 3 characters long.")
+            print("Error! Task must be at least 3 characters long.")
 
         elif is_duplicate(new_task):
             print("Task already exists. Please enter a different task.")
@@ -148,10 +148,10 @@ def get_deadline():
     while True:
 
         time_input = input(
-            "What time is it due? (0-23, Enter 0 to cancel): "
+            "What time is it due? (0-23, Enter -1 to cancel): "
         ).strip()
 
-        if time_input == "0":
+        if time_input == "-1":
             print("Deadline update cancelled.")
             return None
 
@@ -215,7 +215,7 @@ def update_task():
                 while True:
 
                     update_deadline = input(
-                        "Would you like to update deadline? (Yes/No): "
+                        "Would you like to update the deadline? (Yes/No): "
                     ).strip().lower()
 
                     if update_deadline == "yes":
