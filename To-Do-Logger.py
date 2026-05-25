@@ -2,6 +2,8 @@
 # Sample task list
 tasks_list = ["Do Homework", "Wash Dishes", "Study Python"]
 
+import common_functions as cf
+
 # Sample deadline list
 deadline_list = [
     "May 20, at 14:00",
@@ -23,25 +25,6 @@ days_per_month = [
     31, 30, 31
 ]
 
-
-# Function to display tasks
-def display_tasks(title):
-
-    print("=" * 40)
-    print(title.center(40))
-    print("=" * 40)
-
-    if len(tasks_list) == 0:
-        print("No tasks found.")
-        return
-
-    for i in range(len(tasks_list)):
-        print(
-            "[" + str(i + 1) + "]",
-            tasks_list[i],
-            "- Deadline:",
-            deadline_list[i]
-        )
 
 
 # Function to check duplicate tasks
@@ -195,7 +178,7 @@ def update_task():
 
     while True:
 
-        display_tasks("UPDATE TASK")
+        cf.display_tasks("UPDATED TASK LIST", tasks_list, deadline_list)
 
         print("[0] Cancel")
 
@@ -285,7 +268,7 @@ def delete_task():
 
     while True:
 
-        display_tasks("DELETE TASK")
+        cf.display_tasks("DELETE TASK", tasks_list, deadline_list)
 
         print("[0] Cancel")
 
