@@ -11,20 +11,6 @@ deadline_list = [
     "May 25, at 18:00"
 ]
 
-months = [
-    "January", "February", "March",
-    "April", "May", "June",
-    "July", "August", "September",
-    "October", "November", "December"
-]
-
-days_per_month = [
-    31, 28, 31,
-    30, 31, 30,
-    31, 31, 30,
-    31, 30, 31
-]
-
 
 
 # Function to check duplicate tasks
@@ -69,13 +55,13 @@ def get_task_name():
         elif new_task == "":
             print("Error! Task cannot be empty.")
 
-        elif is_all_numbers(new_task):
+        elif cf.is_all_numbers(new_task):
             print("Error! Task cannot be numbers only.")
 
         elif len(new_task) < 3:
             print("Error! Task must be at least 3 characters long.")
 
-        elif is_duplicate(new_task):
+        elif cf.is_duplicate(new_task, tasks_list):
 
             while True:
 
@@ -111,11 +97,11 @@ def get_deadline():
             print("Deadline update cancelled.")
             return None
 
-        if month not in months:
+        if month not in cf.months:
             print("Error! Please input a valid month.")
             continue
 
-        month_index = months.index(month)
+        month_index = cf.months.index(month)
         break
 
     # Day Validation
@@ -129,12 +115,12 @@ def get_deadline():
             print("Deadline update cancelled.")
             return None
 
-        if not is_all_numbers(day_input):
+        if not cf.is_all_numbers(day_input):
             print("Error! Please input the day using only numbers.")
             continue
 
         day = int(day_input)
-        max_days = days_per_month[month_index]
+        max_days = cf.days_per_month[month_index]
 
         if day < 1 or day > max_days:
             print(f"Invalid day! {month} only has {max_days} days.")
@@ -153,7 +139,7 @@ def get_deadline():
             print("Deadline update cancelled.")
             return None
 
-        if not is_all_numbers(time_input):
+        if not cf.is_all_numbers(time_input):
             print("Error! Please enter a time between 0 and 23.")
             continue
 
@@ -194,7 +180,7 @@ def update_task():
         if choice == "":
             print("Error! Task cannot be empty.")
 
-        elif is_all_numbers(choice):
+        elif cf.is_all_numbers(choice):
 
             choice = int(choice)
 
@@ -284,7 +270,7 @@ def delete_task():
         if choice == "":
             print("Error! Task cannot be empty.")
 
-        elif is_all_numbers(choice):
+        elif cf.is_all_numbers(choice):
 
             choice = int(choice)
 
@@ -336,5 +322,5 @@ update_task()
 delete_task()
 
 print("\nUPDATED TASK LIST:")
-display_tasks("TASK LIST") 
+cf.display_tasks("TASK LIST",tasks_list,deadline_list)
 
