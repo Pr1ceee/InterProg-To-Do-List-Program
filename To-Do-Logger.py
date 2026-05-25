@@ -12,32 +12,6 @@ deadline_list = [
 ]
 
 
-
-# Function to check duplicate tasks
-def is_duplicate(task):
-
-    for task_name in tasks_list:
-        if task.lower() == task_name.lower():
-            return True
-
-    return False
-
-
-# Function to check if input is only numbers
-def is_all_numbers(text):
-
-    if text == "":
-        return False
-
-    numbers = "0123456789"
-
-    for char in text:
-        if char not in numbers:
-            return False
-
-    return True
-
-
 # Function for valid task name input
 def get_task_name():
 
@@ -164,7 +138,7 @@ def update_task():
 
     while True:
 
-        cf.display_tasks("UPDATED TASK LIST", tasks_list, deadline_list)
+        cf.display_tasks("UPDATE TASK", tasks_list, deadline_list)
 
         print("[0] Cancel")
 
@@ -322,5 +296,5 @@ update_task()
 delete_task()
 
 print("\nUPDATED TASK LIST:")
-cf.display_tasks("TASK LIST",tasks_list,deadline_list)
+cf.display_tasks("TASK LIST", tasks_list, deadline_list)
 
