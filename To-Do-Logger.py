@@ -5,8 +5,8 @@ print("=" * 40)
 import common_functions as cf 
 
 # Empty task list and deadline list
-tasks_list = cf.tasks_list = []
-deadline_list = cf.deadline_list = []
+tasks_list = []
+deadline_list = []
 
 # Function to handle cancelled deadline input and return a default value
 def get_cancelled_deadline():
@@ -128,7 +128,11 @@ def add_task():
             deadline_list.append(formatted_deadline)
             print("Your task has been successfully added to the tasks list!")
             
-            cf.display_tasks(tasks_list, deadline_list)
+            cf.display_tasks(
+                tasks_list, 
+                deadline_list,
+                "ADD TASK"
+                )
             
             # Ask if user wants to add another task
             another = input("Would you like to add another task? (yes/no): ").strip().lower()
