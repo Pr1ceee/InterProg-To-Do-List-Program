@@ -33,13 +33,14 @@ def is_duplicate(task, tasks_list):
     return False
 
 # Function to display tasks with a custom title
-def display_tasks(tasks_list, deadline_list, title="VIEW TASK"):
+def display_tasks(title, tasks_list, deadline_list):
     print("=" * 40)
-    print(title.center(40))
+    print(title)
     print("=" * 40)
-    
+
     if len(tasks_list) == 0:
         print("No tasks found.")
-    else:
-        for i in range(len(tasks_list)):
-            print("[" + str(i + 1) + "]", tasks_list[i], "- Deadline:", deadline_list[i])
+        return
+
+    for i in range(len(tasks_list)):
+        print("[" + str(i + 1) + "]", tasks_list[i], "- Deadline:", deadline_list[i])
