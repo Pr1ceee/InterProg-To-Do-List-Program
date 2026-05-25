@@ -33,7 +33,7 @@ def is_duplicate(task, tasks_list):
     return False
 
 # Function to display tasks with a custom title
-def display_tasks(title="VIEW TASK"):
+def display_tasks(tasks_list, deadline_list, title="VIEW TASK"):
     print("=" * 40)
     print(title.center(40))
     print("=" * 40)
