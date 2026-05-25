@@ -25,7 +25,7 @@ days_per_month = [
 
 
 # Function to display tasks
-def display_tasks(title, show_empty=True):
+def display_tasks(title):
 
     print("=" * 40)
     print(title.center(40))
@@ -70,7 +70,6 @@ def is_all_numbers(text):
 
 
 # Function for valid task name input
-# Function for valid task name input
 def get_task_name():
 
     while True:
@@ -109,7 +108,7 @@ def get_task_name():
                     break
 
                 else:
-                    print("Please enter Yes or No.")
+                    print("Error! Please enter Yes or No.")
 
         else:
             return new_task
@@ -260,7 +259,7 @@ def update_task():
                         break
 
                     else:
-                        print("Please enter Yes or No.")
+                        print("Error! Please enter Yes or No.")
 
                 # Update task
                 tasks_list[choice - 1] = new_task
@@ -273,7 +272,7 @@ def update_task():
                 print("Please choose a number between 1 and", len(tasks_list))
 
         else:
-            print("Please enter numbers only.")
+            print("Error! Please enter numbers only.")
 
 
 # Function to delete a task
@@ -339,14 +338,14 @@ def delete_task():
                         return
 
                     else:
-                        print("Please enter Yes, No, or 0.")
+                        print("Error! Please enter Yes, No, or 0.")
 
             else:
                 print("Invalid task number.")
                 print("Please choose a number between 1 and", len(tasks_list))
 
         else:
-            print("Please enter numbers only.")
+            print("Error! Please enter numbers only.")
 
 
 # Example calls
@@ -354,5 +353,5 @@ update_task()
 delete_task()
 
 print("\nUPDATED TASK LIST:")
-display_tasks("TASK LIST")
+display_tasks("TASK LIST") 
 
