@@ -1,5 +1,5 @@
 print("=" * 40)
-print("TASK MANAGER".center(40))
+print("TASK MANAGER")
 print("=" * 40)
 
 import common_functions as cf 
@@ -79,7 +79,7 @@ def get_deadline():
 def add_task():
     while True:
         print("=" * 40)
-        print("ADD TASK".center(40))
+        print("ADD TASK")
         print("=" * 40)
         
 
@@ -128,11 +128,7 @@ def add_task():
             deadline_list.append(formatted_deadline)
             print("Your task has been successfully added to the tasks list!")
             
-            cf.display_tasks(
-                tasks_list, 
-                deadline_list,
-                "ADD TASK"
-                )
+            cf.display_tasks("ADD TASK", tasks_list, deadline_list)
             
             # Ask if user wants to add another task
             another = input("Would you like to add another task? (yes/no): ").strip().lower()
