@@ -1,8 +1,7 @@
-print("=" * 40)
-print("TASK MANAGER")
-print("=" * 40)
-
 import common_functions as cf 
+
+cf.clear_screen()
+cf.print_header("TASK MANAGER")
 
 # Empty task list and deadline list
 tasks_list = []
@@ -17,7 +16,7 @@ def get_cancelled_deadline():
 def get_deadline():
     # Month Validation
     while True:
-        month = input("What month is it due? (0 to cancel): ").strip().title()
+        month = input("➤ What month is it due? (0 to cancel): ").strip().title()
 
         # Cancel option
         if month == "0":
@@ -35,7 +34,7 @@ def get_deadline():
         
     # Day Validation
     while True:    
-        day_input = input("What day is it due? (0 to cancel) ").strip()
+        day_input = input("➤ What day is it due? (0 to cancel) ").strip()
                     
         # Cancel option
         if day_input == "0":
@@ -57,7 +56,7 @@ def get_deadline():
     
     # Time Validation   
     while True:
-        time_input = input("What time is it due? (0-23) (-1 to cancel): ")
+        time_input = input("➤ What time is it due? (0-23) (-1 to cancel): ")
                     
         if time_input == "-1":
             return get_cancelled_deadline()
@@ -78,12 +77,10 @@ def get_deadline():
 # Function to add a task and optionally set a deadline for it
 def add_task():
     while True:
-        print("=" * 40)
-        print("ADD TASK")
-        print("=" * 40)
-        
+        cf.clear_screen()
+        cf.print_header("ADD TASK")
 
-        base_task = input("Enter your task (0 to cancel): ").strip()      
+        base_task = input("➤ Enter your task (0 to cancel): ").strip()      
          
         # Cancel option       
         if base_task == "0":
@@ -107,7 +104,7 @@ def add_task():
             continue
 
         else:
-            deadline = input("Would you like to add a deadline for your task? (yes/no): ").strip().lower()
+            deadline = input("➤ Would you like to add a deadline for your task? (yes/no): ").strip().lower()
             
             formatted_task = base_task.title()
             formatted_deadline = "No Deadline"
@@ -131,7 +128,7 @@ def add_task():
             cf.display_tasks("UPDATED TASK LIST", tasks_list, deadline_list)
             
             # Ask if user wants to add another task
-            another = input("Would you like to add another task? (yes/no): ").strip().lower()
+            another = input("➤ Would you like to add another task? (yes/no): ").strip().lower()
             if another == "yes":
                 continue
             elif another == "no":
