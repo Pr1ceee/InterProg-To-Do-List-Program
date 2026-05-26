@@ -128,7 +128,7 @@ def add_task():
             deadline_list.append(formatted_deadline)
             print("Your task has been successfully added to the tasks list!")
             
-            cf.display_tasks("ADD TASK", tasks_list, deadline_list)
+            cf.display_tasks("UPDATED TASK LIST", tasks_list, deadline_list)
             
             # Ask if user wants to add another task
             another = input("Would you like to add another task? (yes/no): ").strip().lower()
