@@ -1,11 +1,15 @@
 
-# Sample task list
-tasks_list = ["Do Homework", "Wash Dishes", "Study Python"]
-
 import common_functions as cf
 
 cf.clear_screen()
 cf.print_header("TASK MANAGER")
+
+
+
+# Sample task list
+tasks_list = ["Do Homework", "Wash Dishes", "Study Python"]
+
+
 
 # Sample deadline list
 deadline_list = [
@@ -235,9 +239,7 @@ def delete_task():
 
         print("[0] Cancel")
 
-        choice = input(
-            "Enter task number to delete: "
-        ).strip()
+        choice = input("➤ Enter task number to delete: ").strip()
 
         # Cancel option
         if choice == "0":
@@ -255,11 +257,7 @@ def delete_task():
 
                 while True:
 
-                    confirm = input(
-                        "➤ Are you sure you want to delete? "
-                        + tasks_list[choice - 1]
-                        + "? (Yes/No): "
-                    ).strip().lower()
+                    confirm = input("➤ Delete '" + tasks_list[choice - 1] + "'? (Yes/No): ").strip().lower()
 
                     # Cancel option
                     if confirm == "0":
