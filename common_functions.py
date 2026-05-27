@@ -11,14 +11,37 @@ def clear_screen():
 # ================= SIMPLE HEADER =================
  
 def print_header(title):
- 
+
     total_width = 40
     spaces = (total_width - len(title)) // 2
- 
+
     print("╔" + "═"*40 + "╗")
-    print(" " * spaces + title)
+    print("║" + " " * spaces + title + " " * spaces + "║")
     print("╚" + "═"*40 + "╝")
  
+ # ================= COLUMN CENTER =================
+ 
+def column_header(text, width):
+ 
+    spaces = (width - len(text)) // 2
+ 
+    return (
+        " " * spaces
+        + text
+        + " " * spaces
+    )
+
+# ================= STATUS MESSAGES =================
+
+def success(message):
+    print("[✓]", message)
+
+def error(message):
+    print("[✗]", message)
+
+def notice(message):
+    print("[!]", message)
+    
 # ================= MONTHS =================
  
 months = [
@@ -68,18 +91,35 @@ def display_tasks(title, tasks_list, deadline_list):
     print_header(title)
  
     if len(tasks_list) == 0:
-        print("No tasks found.")
+        notice("No tasks found.")
         return
  
-    print("----------------------------------------------")
+    print("┌─────┬────────────────────────┬──────────────────┐")
+ 
+    print(
+        "│"
+        + column_header("No.",5)
+        + "│"
+        + column_header("Task",24)
+        + "│"
+        + column_header("Deadline",18)
+        + "│"
+    )
+ 
+    print("├─────┼────────────────────────┼──────────────────┤")
  
     for i in range(len(tasks_list)):
  
+        number = str(i + 1)
+ 
         print(
-            "[" + str(i + 1) + "]",
-            tasks_list[i],
-            "|",
-            deadline_list[i]
+            "│ "
+            + number
+            + "   │ "
+            + tasks_list[i][:22]
+            + " │ "
+            + deadline_list[i][:16]
+            + " │"
         )
  
-    print("----------------------------------------------")
+    print("└─────┴────────────────────────┴──────────────────┘")
