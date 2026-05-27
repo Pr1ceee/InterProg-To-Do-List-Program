@@ -4,6 +4,9 @@ tasks_list = ["Do Homework", "Wash Dishes", "Study Python"]
 
 import common_functions as cf
 
+cf.clear_screen()
+cf.print_header("TASK MANAGER")
+
 # Sample deadline list
 deadline_list = [
     "May 20, at 14:00",
@@ -138,13 +141,12 @@ def update_task():
 
     while True:
 
+        cf.clear_screen()
         cf.display_tasks("UPDATE TASK", tasks_list, deadline_list)
 
         print("[0] Cancel")
 
-        choice = input(
-            "Enter task number to update: "
-        ).strip()
+        choice = input("➤ Enter task number to update:").strip()
 
         # Cancel option
         if choice == "0":
@@ -184,7 +186,7 @@ def update_task():
                 while True:
 
                     update_deadline = input(
-                        "Would you like to update the deadline? (Yes/No): "
+                        "➤ Would you like to update the deadline? (Yes or No)"
                     ).strip().lower()
 
                     if update_deadline == "yes":
@@ -228,6 +230,7 @@ def delete_task():
 
     while True:
 
+        cf.clear_screen()
         cf.display_tasks("DELETE TASK", tasks_list, deadline_list)
 
         print("[0] Cancel")
@@ -253,7 +256,7 @@ def delete_task():
                 while True:
 
                     confirm = input(
-                        "Are you sure you want to delete '"
+                        "➤ Are you sure you want to delete?"
                         + tasks_list[choice - 1]
                         + "'? (Yes/No): "
                     ).strip().lower()
@@ -297,4 +300,3 @@ delete_task()
 
 print("\nUPDATED TASK LIST:")
 cf.display_tasks("TASK LIST", tasks_list, deadline_list)
-
