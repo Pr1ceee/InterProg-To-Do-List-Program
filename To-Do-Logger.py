@@ -9,7 +9,7 @@ deadline_list = []
 
 # Function to handle cancelled deadline input and return a default value
 def get_cancelled_deadline():
-    print("Deadline input cancelled.")
+    cf.notice("Deadline input cancelled.")
     return "No Deadline"
  
 # Function to get and validate deadline input from the user      
