@@ -1,10 +1,6 @@
 
 import common_functions as cf
 
-cf.clear_screen()
-cf.print_header("TASK MANAGER")
-
-
 
 # Sample task list
 tasks_list = ["Do Homework", "Wash Dishes", "Study Python"]
@@ -143,7 +139,7 @@ def update_task():
 
     while True:
 
-        cf.clear_screen()
+        
         cf.display_tasks("UPDATE TASK", tasks_list, deadline_list)
         
         print("[0] Cancel")
@@ -221,8 +217,6 @@ def update_task():
         else:
             cf.error("Error! Please enter numbers only.")
 
-            cf.display_tasks("TASK LIST", tasks_list, deadline_list)
-            input("\n➤ Press Enter to continue...")
 
 
 
@@ -237,7 +231,6 @@ def delete_task():
 
     while True:
 
-        cf.clear_screen()
         cf.display_tasks("DELETE TASK", tasks_list, deadline_list)
 
         print("[0] Cancel")
