@@ -146,7 +146,7 @@ def update_task():
 
         print("[0] Cancel")
 
-        choice = input("➤ Enter task number to update:").strip()
+        choice = input("➤ Enter task number to update: ").strip()
 
         # Cancel option
         if choice == "0":
@@ -186,7 +186,7 @@ def update_task():
                 while True:
 
                     update_deadline = input(
-                        "➤ Would you like to update the deadline? (Yes or No)"
+                        "➤ Would you like to update the deadline? (Yes or No): "
                     ).strip().lower()
 
                     if update_deadline == "yes":
@@ -256,9 +256,9 @@ def delete_task():
                 while True:
 
                     confirm = input(
-                        "➤ Are you sure you want to delete?"
+                        "➤ Are you sure you want to delete? "
                         + tasks_list[choice - 1]
-                        + "'? (Yes/No): "
+                        + "? (Yes/No): "
                     ).strip().lower()
 
                     # Cancel option
