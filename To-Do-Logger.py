@@ -23,7 +23,7 @@ def get_deadline():
             return get_cancelled_deadline()
                         
         elif month not in cf.months:
-            print("Error! Please input a valid month.")
+            cf.error("Please input a valid month.")
             continue
 
         else:
@@ -41,14 +41,14 @@ def get_deadline():
             return get_cancelled_deadline()
                     
         if not cf.is_all_numbers(day_input):
-            print("Error! Please input the day using only numbers.")
+            cf.error("Please input the day using only numbers.")
             continue
                     
         # Checks if the day is valid for the month
         day = int(day_input)
         max_days = cf.days_per_month[month_index]
         if day < 1 or day > max_days:
-            print(f"Invalid day! {month} only has {max_days} days.")
+            cf.error(f"Invalid day! {month} only has {max_days} days.")
             continue
 
         else:
@@ -62,12 +62,12 @@ def get_deadline():
             return get_cancelled_deadline()
                     
         if not cf.is_all_numbers(time_input):
-            print("Error! Please enter a time between 0 and 23.")
+            cf.error("Please enter a time between 0 and 23.")
             continue
                     
         time = int(time_input)
         if time < 0 or time > 23:
-            print("Error! Please enter a time between 0 and 23.")
+            cf.error("Please enter a time between 0 and 23.")
             continue
         else:
             break
@@ -84,23 +84,23 @@ def add_task():
          
         # Cancel option       
         if base_task == "0":
-            print("Task addition cancelled.")
+            cf.notice("Task addition cancelled.")
             return
 
         if len(base_task) == 0:
-            print("Error! Task cannot be empty.")
+            cf.error("Task cannot be empty.")
             continue
         
         elif len(base_task) < 3:
-            print("Error! Task must be at least 3 characters long.")
+            cf.error("Task must be at least 3 characters long.")
             continue
 
         elif cf.is_all_numbers(base_task):
-            print("Error! Task cannot be numbers only.")
+            cf.error("Task cannot be numbers only.")
             continue
         
         elif cf.is_duplicate(base_task, tasks_list):
-            print("Error! This task already exists.")
+            cf.error("This task already exists.")
             continue
 
         else:
@@ -114,18 +114,19 @@ def add_task():
                 
             # If the user chooses not to add a deadline, deadline = "No Deadline" but the task is still added to the list with a notice that no deadline was recorded.
             elif deadline == "no":
-                print("No deadline recorded.")
+                cf.notice("No deadline recorded.")
             
             else:
-                print("Invalid input. Task not saved.")
+                cf.error("Invalid input. Task not saved.")
                 continue
             
             # Storage / Display
             tasks_list.append(formatted_task)
             deadline_list.append(formatted_deadline)
-            print("Your task has been successfully added to the tasks list!")
+            cf.success("Your task has been successfully added to the tasks list!")
             
             cf.display_tasks("UPDATED TASK LIST", tasks_list, deadline_list)
+            input("\n➤ Press Enter to continue...")
             
             # Ask if user wants to add another task
             another = input("➤ Would you like to add another task? (yes/no): ").strip().lower()
@@ -134,7 +135,7 @@ def add_task():
             elif another == "no":
                 break
             else:
-                print("Invalid input. Returning to main menu.")
+                cf.error("Invalid input. Returning to main menu.")
                 break
   
 add_task()
