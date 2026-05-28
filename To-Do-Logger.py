@@ -20,7 +20,7 @@ def get_task_name():
 
     while True:
 
-        new_task = input("Enter new task (Enter 0 to cancel): ").strip().title()
+        new_task = input("➤ Enter new task (Enter 0 to cancel): ").strip().title()
 
         # Cancel option
         if new_task == "0":
@@ -28,20 +28,20 @@ def get_task_name():
             return None
 
         elif new_task == "":
-            cf.error("Error! Task cannot be empty.")
+            cf.error("Task cannot be empty.")
 
         elif cf.is_all_numbers(new_task):
-            cf.error("Error! Task cannot be numbers only.")
+            cf.error("Task cannot be numbers only.")
 
         elif len(new_task) < 3:
-            cf.error("Error! Task must be at least 3 characters long.")
+            cf.error("Task must be at least 3 characters long.")
 
         elif cf.is_duplicate(new_task, tasks_list):
 
             while True:
 
                 choice = input(
-                    "This task already exists, would you like to update the deadline instead? (Yes/No): "
+                    "➤ This task already exists, would you like to update the deadline instead? (Yes/No): "
                 ).strip().lower()
 
                 if choice == "yes":
@@ -52,7 +52,7 @@ def get_task_name():
                     break
 
                 else:
-                    cf.error("Error! Please enter Yes or No.")
+                    cf.error("Please enter Yes or No.")
 
         else:
             return new_task
@@ -64,16 +64,14 @@ def get_deadline():
     # Month Validation
     while True:
 
-        month = input(
-            "What month is it due? (Enter 0 to cancel): "
-        ).strip().title()
+        month = input("➤ What month is it due? (Enter 0 to cancel): ").strip().title()
 
         if month == "0":
             cf.notice("Deadline update cancelled.")
             return None
 
         if month not in cf.months:
-            cf.error("Error! Please input a valid month.")
+            cf.error("Please input a valid month.")
             continue
 
         month_index = cf.months.index(month)
@@ -82,23 +80,21 @@ def get_deadline():
     # Day Validation
     while True:
 
-        day_input = input(
-            "What day is it due? (Enter 0 to cancel): "
-        ).strip()
+        day_input = input("➤ What day is it due? (Enter 0 to cancel): ").strip()
 
         if day_input == "0":
             cf.notice("Deadline update cancelled.")
             return None
 
         if not cf.is_all_numbers(day_input):
-            cf.error("Error! Please input the day using only numbers.")
+            cf.error("Please input the day using only numbers.")
             continue
 
         day = int(day_input)
         max_days = cf.days_per_month[month_index]
 
         if day < 1 or day > max_days:
-            cf.success(f"Invalid day! {month} only has {max_days} days.")
+            cf.error(f"Invalid day! {month} only has {max_days} days.")
             continue
 
         break
@@ -106,22 +102,20 @@ def get_deadline():
     # Time Validation
     while True:
 
-        time_input = input(
-            "What time is it due? (0-23, Enter -1 to cancel): "
-        ).strip()
+        time_input = input("➤ What time is it due? (0-23, Enter -1 to cancel): ").strip()
 
         if time_input == "-1":
             cf.notice("Deadline update cancelled.")
             return None
 
         if not cf.is_all_numbers(time_input):
-            cf.error("Error! Please enter a time between 0 and 23.")
+            cf.error("Please enter a time between 0 and 23.")
             continue
 
         time = int(time_input)
 
         if time < 0 or time > 23:
-            cf.error("Error! Please enter a time between 0 and 23.")
+            cf.error("Please enter a time between 0 and 23.")
             continue
 
         break
@@ -152,7 +146,7 @@ def update_task():
             return
 
         if choice == "":
-            cf.error("Error! Task cannot be empty.")
+            cf.error("Task cannot be empty.")
 
         elif cf.is_all_numbers(choice):
 
@@ -176,15 +170,14 @@ def update_task():
 
                     if new_deadline is not None:
                         deadline_list[choice - 1] = new_deadline
-                        cf.success("Deadline updated successfully!")
+                        cf.success("Deadline updated! ")
 
                     return
 
                 # Ask if user wants to update deadline
                 while True:
 
-                    update_deadline = input(
-                        "➤ Would you like to update the deadline? (Yes or No): "
+                    update_deadline = input("➤ Would you like to update the deadline? (Yes or No): "
                     ).strip().lower()
 
                     if update_deadline == "yes":
@@ -202,20 +195,20 @@ def update_task():
                         break
 
                     else:
-                        cf.error("Error! Please enter Yes or No.")
+                        cf.error("Please enter Yes or No.")
 
                 # Update task
                 tasks_list[choice - 1] = new_task
 
-                cf.success("Task updated successfully!")
+                cf.success("Task updated! ")
                 return
 
             else:
                 cf.error("Invalid task number.")
-                cf.notice("Please choose a number between 1 and", len(tasks_list))
+                cf.notice("Please choose a number between 1 and" + len(tasks_list))
 
         else:
-            cf.error("Error! Please enter numbers only.")
+            cf.error("Please enter numbers only.")
 
 
 
@@ -243,7 +236,7 @@ def delete_task():
             return
 
         if choice == "":
-            cf.error("Error! Task cannot be empty.")
+            cf.error("Task cannot be empty.")
 
         elif cf.is_all_numbers(choice):
 
@@ -265,7 +258,7 @@ def delete_task():
                         removed_task = tasks_list.pop(choice - 1)
                         removed_deadline = deadline_list.pop(choice - 1)
 
-                        cf.success("Deleted task:", removed_task, "- Deadline:", removed_deadline)
+                        cf.success("Deleted task:" + removed_task + "- Deadline:" + removed_deadline)
                         return
 
                     elif confirm == "no":
@@ -273,14 +266,14 @@ def delete_task():
                         return
 
                     else:
-                        cf.error("Error! Please enter Yes, No, or 0.")
+                        cf.error("Please enter Yes, No, or 0.")
 
             else:
                 cf.error("Invalid task number.")
                 cf.notice("Please choose a number between 1 and", len(tasks_list))
 
         else:
-            cf.error("Error! Please enter numbers only.")
+            cf.error("Please enter numbers only.")
 
 
 # Example calls
