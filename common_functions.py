@@ -3,59 +3,72 @@ import os
 # ================= SCREEN CLEAR =================
  
 def clear_screen():
+ 
     if os.name == "nt":
         os.system("cls")
+ 
     else:
         os.system("clear")
  
-# ================= SIMPLE HEADER =================
+# ================= HEADER BOX =================
  
 def print_header(title):
-
+ 
     total_width = 40
-    spaces = (total_width - len(title)) // 2
-
+ 
+    left_spaces = (total_width - len(title)) // 2
+    right_spaces = total_width - len(title) - left_spaces
+ 
     print("╔" + "═"*40 + "╗")
-    print("║" + " " * spaces + title + " " * spaces + "║")
+ 
+    print(
+        "║"
+        + " " * left_spaces
+        + title
+        + " " * right_spaces
+        + "║"
+    )
+ 
     print("╚" + "═"*40 + "╝")
  
- # ================= COLUMN CENTER =================
+# ================= COLUMN CENTER =================
  
 def column_header(text, width):
  
-    spaces = (width - len(text)) // 2
+    left = (width - len(text)) // 2
+    right = width - len(text) - left
  
     return (
-        " " * spaces
+        " " * left
         + text
-        + " " * spaces
+        + " " * right
     )
-
+ 
 # ================= STATUS MESSAGES =================
-
+ 
 def success(message):
     print("[✓]", message)
-
+ 
 def error(message):
     print("[✗]", message)
-
+ 
 def notice(message):
     print("[!]", message)
-    
+ 
 # ================= MONTHS =================
  
 months = [
-    "January", "February", "March",
-    "April", "May", "June",
-    "July", "August", "September",
-    "October", "November", "December"
+    "January","February","March",
+    "April","May","June",
+    "July","August","September",
+    "October","November","December"
 ]
  
 days_per_month = [
-    31, 28, 31,
-    30, 31, 30,
-    31, 31, 30,
-    31, 30, 31
+    31,28,31,
+    30,31,30,
+    31,31,30,
+    31,30,31
 ]
  
 # ================= NUMBER CHECK =================
@@ -68,6 +81,7 @@ def is_all_numbers(text):
     numbers = "0123456789"
  
     for char in text:
+ 
         if char not in numbers:
             return False
  
@@ -84,7 +98,7 @@ def is_duplicate(task, tasks_list):
  
     return False
  
-# ================= TABLE VIEW =================
+# ================= TASK TABLE =================
  
 def display_tasks(title, tasks_list, deadline_list):
  
@@ -94,32 +108,57 @@ def display_tasks(title, tasks_list, deadline_list):
         notice("No tasks found.")
         return
  
-    print("┌─────┬────────────────────────┬──────────────────┐")
+    no_width = 5
+    task_width = 24
+    deadline_width = 18
+ 
+    print(
+        "┌" + "─"*no_width +
+        "┬" + "─"*task_width +
+        "┬" + "─"*deadline_width +
+        "┐"
+    )
  
     print(
         "│"
-        + column_header("No.",5)
+        + column_header("No.", no_width)
         + "│"
-        + column_header("Task",24)
+        + column_header("Task", task_width)
         + "│"
-        + column_header("Deadline",18)
+        + column_header("Deadline", deadline_width)
         + "│"
     )
  
-    print("├─────┼────────────────────────┼──────────────────┤")
+    print(
+        "├" + "─"*no_width +
+        "┼" + "─"*task_width +
+        "┼" + "─"*deadline_width +
+        "┤"
+    )
  
     for i in range(len(tasks_list)):
  
         number = str(i + 1)
  
+        task = tasks_list[i][:22]
+        deadline = deadline_list[i][:16]
+ 
         print(
             "│ "
             + number
-            + "   │ "
-            + tasks_list[i][:22]
-            + " │ "
-            + deadline_list[i][:16]
-            + " │"
+            + " "*(no_width-1-len(number))
+            + "│ "
+            + task
+            + " "*(task_width-2-len(task))
+            + "│ "
+            + deadline
+            + " "*(deadline_width-2-len(deadline))
+            + "│"
         )
  
-    print("└─────┴────────────────────────┴──────────────────┘")
+    print(
+        "└" + "─"*no_width +
+        "┴" + "─"*task_width +
+        "┴" + "─"*deadline_width +
+        "┘"
+    )
