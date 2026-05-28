@@ -258,7 +258,7 @@ def delete_task():
                         removed_task = tasks_list.pop(choice - 1)
                         removed_deadline = deadline_list.pop(choice - 1)
 
-                        cf.success("Deleted task:" + removed_task + "- Deadline:" + removed_deadline)
+                        cf.success("Deleted task: " + removed_task + " - Deadline: " + removed_deadline)
                         return
 
                     elif confirm == "no":
