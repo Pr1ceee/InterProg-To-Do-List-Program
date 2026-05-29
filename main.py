@@ -15,9 +15,9 @@ deadline_list = [
 def get_deadline():
 
     while True:
-        month = input("➤  What month is it due? (0 to cancel): ").strip().title()
+        month = input("➤  What month is it due? (X to cancel): ").strip().title()
 
-        if month == "0":
+        if month.lower() == "x":
             return None
 
         if month not in cf.months:
@@ -28,9 +28,9 @@ def get_deadline():
         break
 
     while True:
-        day_input = input("➤  What day is it due? (0 to cancel): ").strip()
+        day_input = input("➤  What day is it due? (X to cancel): ").strip()
 
-        if day_input == "0":
+        if day_input.lower() == "x":
             return None
 
         if not cf.is_all_numbers(day_input):
@@ -47,9 +47,9 @@ def get_deadline():
         break
 
     while True:
-        time_input = input("➤  What time is it due? (0-23, Enter -1 to cancel): ").strip()
+        time_input = input("➤  What time is it due? (0-23, X to cancel): ").strip()
 
-        if time_input == "-1":
+        if time_input.lower() == "x":
             return None
 
         if not cf.is_all_numbers(time_input):
@@ -74,9 +74,9 @@ def add_task():
         cf.clear_screen()
         cf.print_header("ADD TASK")
 
-        base_task = input("➤  Enter your task (0 to cancel): ").strip()
+        base_task = input("➤  Enter your task (X to cancel): ").strip()
 
-        if base_task == "0":
+        if base_task.lower() == "x":
             cf.notice("Task addition cancelled.")
             input("\n➤  Press Enter to continue...")
             return
@@ -153,11 +153,11 @@ def get_task_name():
 
     while True:
 
-        new_task = input("➤  Enter new task (Enter 0 to cancel): ").strip().title()
+        new_task = input("➤  Enter new task (Enter X to cancel): ").strip().title()
 
 
         # Cancel option
-        if new_task == "0":
+        if new_task.lower() == "x":
             cf.notice("Update cancelled.")
             return None
 
@@ -223,12 +223,12 @@ def update_task():
         cf.clear_screen()
         cf.display_tasks("UPDATE TASK", tasks_list, deadline_list)
 
-        print("[0] Cancel")
+        print("[X] Cancel")
 
-        choice = input("➤  Enter task number to update: ").strip()
+        choice = input("➤  Enter task number to update (X to cancel): ").strip()
 
         # Cancel option
-        if choice == "0":
+        if choice.lower() == "x":
             cf.notice("Update process cancelled.")
             input("\n➤  Press Enter to continue...")
             return
@@ -323,11 +323,11 @@ def delete_task():
         cf.clear_screen()
         cf.display_tasks("DELETE TASK", tasks_list, deadline_list)
 
-        print("[0] Cancel")
+        print("[X] Cancel")
 
-        choice = input("➤  Enter task number to delete: ").strip()
+        choice = input("➤  Enter task number to delete (X to cancel): ").strip()
 
-        if choice == "0":
+        if choice.lower() == "x":
             cf.notice("Delete process cancelled.")
             input("\n➤  Press Enter to continue...")
             return
