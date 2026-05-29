@@ -34,7 +34,7 @@ def get_deadline():
             return None
 
         if not cf.is_all_numbers(day_input):
-            cf.error("Please input the day using only numbers.")
+            cf.error("Please input a valid day.")
             continue
 
         day = int(day_input)
