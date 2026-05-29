@@ -190,20 +190,16 @@ def get_task_name():
 
             while True:
 
-                choice = input(
-                    "➤  This task already exists, would you like to update the selected task's deadline instead? (Yes/No): "
-                ).strip().lower()
+                choice = get_yes_no(
+                    "This task already exists, would you like to update the selected task's deadline instead?").strip().lower()
 
                 if choice == "yes":
                     return "UPDATE_DEADLINE"
 
-                elif choice == "no":
-                    cf.notice("Please enter a different task.")
-                    input("\n➤  Press Enter to continue...")
-                    break
-
                 else:
                     cf.error("Please enter Yes or No.")
+                    input("\n➤  Press Enter to continue...")
+                    break
 
         else:
             return new_task
@@ -289,6 +285,9 @@ def update_task():
                 deadline_list[choice - 1] = new_deadline
             else:
                 cf.notice("Original deadline retained.")
+        
+        else:
+            cf.notice("Deadline unchanged.")
 
         tasks_list[choice - 1] = new_task
 
