@@ -214,7 +214,8 @@ def update_task():
 
     # Handle empty task list
     if len(tasks_list) == 0:
-        cf.notice("No tasks found.")
+        cf.display_tasks("UPDATE TASK", tasks_list, deadline_list)
+        input("\n➤  Press Enter to continue...")
         return
 
     while True:
@@ -261,7 +262,7 @@ def update_task():
             input("\n➤  Press Enter to continue...")
             return
 
-        # ================= DUPLICATE → UPDATE DEADLINE FEATURE (RESTORED) =================
+        # =================  UPDATE DEADLINE FEATURE =================
         if new_task == "UPDATE_DEADLINE":
 
             new_deadline = get_deadline()
@@ -269,8 +270,12 @@ def update_task():
             if new_deadline is not None:
                 deadline_list[choice - 1] = new_deadline
                 cf.success("Deadline updated!")
-                input("\n➤  Press Enter to continue...")
+                cf.display_tasks("UPDATED TASK LIST", tasks_list, deadline_list)
 
+            else:
+                cf.notice("Deadline update cancelled.")
+
+            input("\n➤  Press Enter to continue...")
             return
 
         # Ask if user wants to update deadline
@@ -301,6 +306,7 @@ def update_task():
         tasks_list[choice - 1] = new_task
 
         cf.success("Task updated!")
+        cf.display_tasks("UPDATED TASK LIST", tasks_list, deadline_list)
         input("\n➤  Press Enter to continue...")
         return
 
@@ -308,7 +314,7 @@ def update_task():
 def delete_task():
 
     if len(tasks_list) == 0:
-        cf.notice("No tasks found.")
+        cf.display_tasks("DELETE TASK", tasks_list, deadline_list)
         input("\n➤  Press Enter to continue...")
         return
 
@@ -349,6 +355,7 @@ def delete_task():
             removed_task = tasks_list.pop(choice - 1)
             removed_deadline = deadline_list.pop(choice - 1)
             cf.success("Deleted task: " + removed_task + " - Deadline: " + removed_deadline)
+            cf.display_tasks("UPDATED TASK LIST", tasks_list, deadline_list)
 
         elif confirm == "no":
             cf.notice("Delete cancelled.")
@@ -388,7 +395,18 @@ def main_menu():
             cf.clear_screen()
             cf.print_header("GOODBYE!")
             print("\nThanks for using our To-Do List Manager!")
-            print("See you next time 👋")
+            print(
+    """
+    ____                 ____                 
+   / __ ) __  __ ___    / __ ) __  __ ___     
+  / __  |/ / / // _ \  / __  |/ / / // _ \    
+ / /_/ // /_/ //  __/ / /_/ // /_/ //  __/    
+/_____/ \__, / \___/ /_____/ \__, / \___/     
+       /____/               /____/            
+
+    Stay productive! See you next time.
+"""
+)
             break
         else:
             cf.error("Invalid input.")
