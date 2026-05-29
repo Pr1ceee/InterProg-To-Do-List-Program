@@ -10,6 +10,18 @@ deadline_list = [
     "May 25, at 18:00"
 ]
 
+def get_yes_no(prompt: str):
+    while True:
+        response = input(f"➤  {prompt} (Yes/No): ").strip().lower()
+
+        if response in ["yes", "y"]:
+            return "yes"
+        elif response in ["no", "n"]:
+            return "no"
+        else:
+            cf.error("Please enter Yes or No.")
+            input("\n➤  Press Enter to try again...")
+
 
 # ================= DEADLINE FUNCTION =================
 def get_deadline():
@@ -111,23 +123,15 @@ def add_task():
             input("\n➤  Press Enter to continue...")
             continue
 
-        deadline = input("➤  Would you like to add a deadline for your task? (yes/no): ").strip().lower()
-
         formatted_task = base_task.title()
         formatted_deadline = "No Deadline"
 
-        if deadline == "yes":
+        deadline_choice = get_yes_no("Would you like to add a deadline for your task?")
+
+        if deadline_choice == "yes":
             result = get_deadline()
             if result is not None:
                 formatted_deadline = result
-
-        elif deadline == "no":
-            cf.notice("No deadline recorded.")
-
-        else:
-            cf.error("Invalid input. Task not saved.")
-            input("\n➤  Press Enter to continue...")
-            continue
 
         tasks_list.append(formatted_task)
         deadline_list.append(formatted_deadline)
@@ -137,14 +141,11 @@ def add_task():
         cf.display_tasks("UPDATED TASK LIST", tasks_list, deadline_list)
         input("\n➤  Press Enter to continue...")
 
-        another = input("➤  Would you like to add another task? (yes/no): ").strip().lower()
+        another = get_yes_no("Would you like to add another task?")
 
         if another == "yes":
             continue
-        elif another == "no":
-            break
         else:
-            cf.error("Invalid input. Returning to main menu.")
             break
 
 
@@ -279,30 +280,16 @@ def update_task():
             return
 
         # Ask if user wants to update deadline
-        while True:
+        update_deadline = get_yes_no("Would you like to update the deadline?")
 
-            update_deadline = input(
-                "➤  Would you like to update the deadline? (Yes or No): "
-            ).strip().lower()
+        if update_deadline == "yes":
+            new_deadline = get_deadline()
 
-            if update_deadline == "yes":
-
-                new_deadline = get_deadline()
-
-                if new_deadline is None:
-                    cf.notice("Original deadline retained.")
-                    break
-
+            if new_deadline is not None:
                 deadline_list[choice - 1] = new_deadline
-                break
-
-            elif update_deadline == "no":
-                break
-
             else:
-                cf.error("Please enter Yes or No.")
+                cf.notice("Original deadline retained.")
 
-        # Update task
         tasks_list[choice - 1] = new_task
 
         cf.success("Task updated!")
@@ -349,19 +336,15 @@ def delete_task():
             input("\n➤  Press Enter to continue...")
             continue
 
-        confirm = input("➤  Delete '" + tasks_list[choice - 1] + "'? (Yes/No): ").strip().lower()
+        confirm = get_yes_no(f"Delete '{tasks_list[choice - 1]}'?")
 
         if confirm == "yes":
             removed_task = tasks_list.pop(choice - 1)
             removed_deadline = deadline_list.pop(choice - 1)
             cf.success("Deleted task: " + removed_task + " - Deadline: " + removed_deadline)
             cf.display_tasks("UPDATED TASK LIST", tasks_list, deadline_list)
-
-        elif confirm == "no":
-            cf.notice("Delete cancelled.")
-
         else:
-            cf.error("Please enter Yes, No, or 0.")
+            cf.notice("Delete cancelled.")
 
         input("\n➤  Press Enter to continue...")
         return
