@@ -132,6 +132,12 @@ def add_task():
             result = get_deadline()
             if result is not None:
                 formatted_deadline = result
+            
+            else:
+                cf.notice("Deadline input cancelled.")
+
+        else:
+            cf.notice("Task will be saved without a deadline.")
 
         tasks_list.append(formatted_task)
         deadline_list.append(formatted_deadline)
@@ -146,6 +152,8 @@ def add_task():
         if another == "yes":
             continue
         else:
+            cf.notice("Task entry session finished. Returning to main menu...")
+            input("\n➤  Press Enter to continue...")
             break
 
 
@@ -216,8 +224,6 @@ def update_task():
 
         cf.clear_screen()
         cf.display_tasks("UPDATE TASK", tasks_list, deadline_list)
-
-        print("[X] Cancel")
 
         choice = input("➤  Enter task number to update (X to cancel): ").strip()
 
@@ -290,6 +296,7 @@ def update_task():
 
         cf.success("Task updated!")
         cf.display_tasks("UPDATED TASK LIST", tasks_list, deadline_list)
+        cf.notice("Update session finished. Returning to main menu...")
         input("\n➤  Press Enter to continue...")
         return
 
@@ -305,8 +312,6 @@ def delete_task():
 
         cf.clear_screen()
         cf.display_tasks("DELETE TASK", tasks_list, deadline_list)
-
-        print("[X] Cancel")
 
         choice = input("➤  Enter task number to delete (X to cancel): ").strip()
 
@@ -342,6 +347,7 @@ def delete_task():
         else:
             cf.notice("Delete cancelled.")
 
+        cf.notice("Delete session finished. Returning to main menu...")
         input("\n➤  Press Enter to continue...")
         return
 
