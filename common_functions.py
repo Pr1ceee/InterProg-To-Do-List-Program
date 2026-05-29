@@ -96,7 +96,7 @@ def display_tasks(title, tasks_list, deadline_list):
 
     no_width = 6
     task_width = 26
-    deadline_width = 20
+    deadline_width = 22
 
     print("┌" + "─" * no_width + "┬" + "─" * task_width + "┬" + "─" * deadline_width + "┐")
 
