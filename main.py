@@ -188,18 +188,15 @@ def get_task_name():
 
         elif cf.is_duplicate(new_task, tasks_list):
 
-            while True:
+            choice = get_yes_no(
+                "This task already exists. Update its deadline instead?")
 
-                choice = get_yes_no(
-                    "This task already exists, would you like to update the selected task's deadline instead?").strip().lower()
-
-                if choice == "yes":
-                    return "UPDATE_DEADLINE"
-
-                else:
-                    cf.error("Please enter Yes or No.")
-                    input("\n➤  Press Enter to continue...")
-                    break
+            if choice == "yes":
+                return "UPDATE_DEADLINE"
+            else:
+                cf.notice("Please enter a different task.")
+                input("\n➤  Press Enter to continue...")
+                continue
 
         else:
             return new_task
